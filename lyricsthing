@@ -1,0 +1,48 @@
+import requests
+from lyricsgenius import Genius
+import re
+import lyricsgenius
+
+# song information 
+searchTerm = input("song name: ")
+accessToken = "dBdNFFsh_ywi-VvikMkPjhpWsdH7kvHX_NLj4vDM07987oCDPwSpDIIIOflEsXX3"
+genius = lyricsgenius.Genius(accessToken)
+searchResult = genius.search_song(searchTerm) # uses search_song method from library and uses variable "search_term" or song.
+
+# artist information
+artistName = searchResult.artist
+print(artistName)
+
+# this has all lyrics
+lyrics = searchResult.lyrics
+
+# filters and removes certain characters from lyrics
+lyrics = re.sub(r'\([^)]*\)', '', lyrics) 
+lyrics = re.sub(r'\[.*?\]', '', lyrics)
+lyrics = re.sub(r',', '', lyrics) 
+lyrics = re.sub(r'\b(\w)\.+\b', r'\1', lyrics)
+lyrics = re.sub(r'[^\w\s]', '', lyrics)
+lyrics = re.sub(r'\?', '', lyrics)
+lyrics = re.sub(r"'", '', lyrics) 
+lyrics = re.sub(r'^.*?\n', '', lyrics)
+lyrics = re.sub(r'207Embed', '', lyrics)
+
+lyrics = lyrics.lower()
+
+with open("lyricsFilesave.txt", "w") as f: 
+    f.write(lyrics)
+
+
+lyrics = lyrics.split('\n')
+
+
+print("type the first line below: ")
+for i, line in enumerate(lyrics):
+    while True:
+        user_input = input()
+        user_input = user_input.lower()
+        if user_input == line:
+            print("correct")
+            break
+        else:
+            print("incorrect, try again.")
