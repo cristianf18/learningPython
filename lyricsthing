@@ -13,6 +13,15 @@ searchResult = genius.search_song(searchTerm) # uses search_song method from lib
 artistName = searchResult.artist
 print(artistName)
 
+while True:
+    userInput = input(F"by {artistName}? type yes or no: ")
+    if userInput.lower() == "yes" or userInput == "y":
+        break
+    if userInput.lower() == "no" or userInput =="n":
+        userInput = input("try another song: ")
+        song = genius.search_song(userInput)
+        artistName = song.artist
+
 # this has all lyrics
 lyrics = searchResult.lyrics
 
@@ -44,5 +53,7 @@ for i, line in enumerate(lyrics):
         if user_input == line:
             print("correct")
             break
+        if user_input == "line":
+            print(line)
         else:
-            print("incorrect, try again.")
+            print("incorrect, try again. to see the line type 'line'")
