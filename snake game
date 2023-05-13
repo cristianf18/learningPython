@@ -1,0 +1,58 @@
+import pygame
+import array
+
+pygame.init()
+
+screen = pygame.display.set_mode((500, 600))
+
+red = (255, 0 , 0)
+green = (0, 255, 0)
+xcoordinate = 250
+ycoordinate = 300
+dimensions = [xcoordinate, ycoordinate, 10, 10]
+
+status = False
+
+class coordinates:
+    def __init__(self) -> None:
+        pass
+
+    xcoordinate
+    ycoordinate
+
+x1change = 0
+y1change = 0
+
+bodyPart = coordinates("")
+
+while not status:
+    for event in pygame.event.get():
+        if event.type==pygame.QUIT:
+            status = True
+        if event.type==pygame.KEYDOWN:
+            if event.key == pygame.K_w:
+                y1change = -10
+                x1change = 0
+                
+            if event.key == pygame.K_s:
+                y1change = 10
+                x1change = 0
+            if event.key == pygame.K_d:
+                x1change = 10
+                y1change = 0
+            if event.key == pygame.K_a:
+                x1change = -10
+                y1change = 0
+
+    pygame.time.delay(100)            
+    xcoordinate += x1change
+    ycoordinate += y1change
+
+    buffer = []
+
+    pygame.draw.rect(screen, red, [xcoordinate, ycoordinate, 10 ,10])
+    pygame.display.update()               
+
+
+
+pygame.quit()
